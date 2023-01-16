@@ -57,8 +57,8 @@ def boot_clusters(cfg: TestConfig):
     if cfg.stall_notify_ms and cfg.stall_notify_ms <= 0:
         print('stall-notify-ms must be positive')
         exit(1)
-    if cfg.ring_delay_ms < 1:
-        print('ring-delay-ms must be positive')
+    if cfg.ring_delay_ms < 0:
+        print('ring-delay-ms must be nonnegative')
         exit(1)
 
     cfg.run_path.mkdir(parents=True)
