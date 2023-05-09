@@ -54,6 +54,7 @@ def mk_node_cfg(cfg: NodeConfig) -> dict:
                     }]
                 }],
             'ring_delay_ms': cfg.ring_delay_ms,
+            'force_schema_commit_log': True,
         })
     if cfg.experimental:
         d = dict(d, **{
