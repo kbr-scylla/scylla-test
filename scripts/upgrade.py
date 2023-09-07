@@ -41,6 +41,8 @@ class TestConfig:
     experimental_1: List[str]
     experimental_2: List[str]
     extra_opts: str = ''
+    extra_cfg_1: dict = field(default_factory=dict)
+    extra_cfg_2: dict = field(default_factory=dict)
 
 def upgrade_test(cfg: TestConfig) -> None:
     cfg.run_path.mkdir(parents=True)
@@ -71,9 +73,7 @@ config: {cfg}
         ring_delay_ms = cfg.ring_delay_ms,
         first_node_skip_gossip_settle = cfg.first_node_skip_gossip_settle,
         experimental = cfg.experimental_1,
-        extra = {
-            'enable_repair_based_node_ops': cfg.enable_rbo
-        }
+        extra = cfg.extra_cfg_1,
     )
 
     ip_start = 1
@@ -134,6 +134,10 @@ config: {cfg}
         if cfg.experimental_2 != cfg.experimental_1:
             logger.info(f'Resetting experimental setting from {cfg.experimental_1} to {cfg.experimental_2}')
             n.reset_node_config(replace(n.get_node_config(), experimental = cfg.experimental_2))
+
+        if cfg.extra_cfg_2 != cfg.extra_cfg_1:
+            logger.info(f'Resetting extra cfg from {cfg.extra_cfg_1} to {cfg.extra_cfg_2}')
+            n.reset_node_config(replace(n.get_node_config(), extra = cfg.extra_cfg_2))
 
         logger.info(f'Restarting node {n.ip()}...')
         n.start()
