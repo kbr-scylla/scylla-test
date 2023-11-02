@@ -47,6 +47,7 @@ class TestConfig:
     start_clusters: bool = True
     extra_opts: str = ''
     extra_cfg: dict = field(default_factory=dict)
+    ip_start: int = 1
 
 def boot_clusters(cfg: TestConfig):
     if any(n <= 0 for n in cfg.num_nodes):
@@ -90,7 +91,7 @@ def boot_clusters(cfg: TestConfig):
         extra = cfg.extra_cfg
     )
 
-    ip_starts = itertools.accumulate([1] + cfg.num_nodes, operator.add)
+    ip_starts = itertools.accumulate([cfg.ip_start] + cfg.num_nodes, operator.add)
     logger.info('Creating {} clusters...'.format(len(cfg.num_nodes)))
     cs = [create_cluster(logger, cfg.run_path, cfg.sess, cfg.scylla_path, ip_start, num, opts, cluster_cfg)
             for ip_start, num in zip(ip_starts, cfg.num_nodes)]
