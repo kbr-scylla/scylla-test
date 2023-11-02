@@ -9,6 +9,7 @@ import libtmux # type: ignore
 import os
 import sys
 import logging
+import pprint
 
 from lib.node_config import RunOpts, ClusterConfig
 from lib.local_node import mk_cluster_env
@@ -73,11 +74,7 @@ def boot_clusters(cfg: TestConfig):
 
     logger = logging.getLogger()
 
-    logger.info("Current session: {}".format(cfg.sess))
-    logger.info('Scylla: {}\nRun path: {}\nNum nodes: {}\nNum shards: {}\nOverprovisioned: {}{}\nStart clusters: {}'.format(
-        cfg.scylla_path, cfg.run_path, cfg.num_nodes, cfg.num_shards, cfg.overprovisioned,
-        '\nstall_notify_ms: {}'.format(cfg.stall_notify_ms) if cfg.stall_notify_ms else '',
-        cfg.start_clusters))
+    logger.info(pprint.pformat(cfg))
 
     opts = replace(RunOpts(),
             developer_mode = True,
