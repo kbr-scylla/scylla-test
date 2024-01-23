@@ -64,6 +64,9 @@ def boot_clusters(cfg: TestConfig):
         exit(1)
 
     cfg.run_path.mkdir(parents=True)
+    last_run = cfg.run_path.parent / 'last_boot'
+    last_run.unlink(missing_ok=True)
+    last_run.symlink_to(cfg.run_path)
     logging.basicConfig(
         level = logging.INFO,
         format = "%(asctime)s [%(levelname)s] %(message)s",
