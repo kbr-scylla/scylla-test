@@ -4,10 +4,16 @@ from importlib import resources
 import yaml
 
 @dataclass(frozen=True)
+class Location:
+    dc: str = 'dc1'
+    rack: str = 'rack1'
+
+@dataclass(frozen=True)
 class NodeConfig:
     ip_addr: str
     seed_ips: List[str]
     ring_delay_ms: int
+    location: Location = Location()
     experimental: List[str] = field(default_factory=list)
     extra: dict = field(default_factory=dict)
 

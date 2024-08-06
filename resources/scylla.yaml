@@ -11,7 +11,7 @@ read_request_timeout_in_ms: 5000
 write_request_timeout_in_ms: 2000
 cas_contention_timeout_in_ms: 1000
 
-endpoint_snitch: SimpleSnitch
+endpoint_snitch: GossipingPropertyFileSnitch
 
 rpc_port: 9160
 

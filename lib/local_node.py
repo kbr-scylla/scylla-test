@@ -58,3 +58,7 @@ class LocalNode:
     def __write_conf(self, append: bool) -> None:
         with open(self.__conf_path / 'scylla.yaml', 'w') as f:
             yaml.dump(mk_node_cfg(self.__cfg), f)
+
+        with open(self.__conf_path / 'cassandra-rackdc.properties', 'w') as f:
+            loc = self.__cfg.location
+            f.write(f"dc={loc.dc}\nrack={loc.rack}\n")
