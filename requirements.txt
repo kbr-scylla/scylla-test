@@ -1,5 +1,5 @@
 pyyaml
-cassandra-driver
+scylla-driver
 libtmux
 argparse
 fastapi
